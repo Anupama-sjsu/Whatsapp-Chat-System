@@ -37,9 +37,9 @@ class UserAdapter(
 
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: ViewHolder, i: Int) {
 
-            val user: Users? = mUsers[position]
+            val user: Users? = mUsers[i]
 
             holder.userNameTxt.text = user!!.getUserName()
             Picasso.get().load(user.getProfile()).placeholder(R.drawable.profile).into(holder.profileImageView)
