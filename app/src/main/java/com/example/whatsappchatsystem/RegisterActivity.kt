@@ -1,3 +1,4 @@
+@file:Suppress("NAME_SHADOWING")
 package com.example.whatsappchatsystem
 
 import android.content.Intent
@@ -78,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
                     userHashMap["website"] = "https://www.google.com"
 
                     refUsers.updateChildren(userHashMap)
-                        .addOnCompleteListener { task ->
+                        .addOnCompleteListener {task ->
                             if (task.isSuccessful )
                             {
                                 val intent = Intent(this@RegisterActivity, MainActivity::class.java)
