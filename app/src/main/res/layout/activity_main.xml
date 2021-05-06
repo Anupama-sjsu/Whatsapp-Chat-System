@@ -21,22 +21,22 @@
             app:popupTheme="@style/AppTheme.NoActionBar">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profileImage"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:id="@+id/profile_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/profile"
                 android:tint="@color/white">
 
             </de.hdodenhof.circleimageview.CircleImageView>
 
             <TextView
-                android:id="@+id/username"
+                android:id="@+id/username_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="26dp"
                 android:text="@string/username"
                 android:textColor="@android:color/white"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginStart="26dp">
 
