@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
             app:popupTheme="@style/AppTheme.NoActionBar"
-            app:titleTextColor="@color/colorPrimary">
+            app:titleTextColor="@color/colorPrimaryLight">
 
         </androidx.appcompat.widget.Toolbar>
 

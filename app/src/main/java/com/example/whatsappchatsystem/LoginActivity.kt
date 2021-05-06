@@ -12,8 +12,6 @@ import kotlinx.android.synthetic.main.activity_register.*
 
 class LoginActivity : AppCompatActivity() {
 
-
-
     private lateinit var mAuth: FirebaseAuth
 
 
@@ -57,11 +55,10 @@ class LoginActivity : AppCompatActivity() {
         else
         {
             //If all the information is correct, sign-in the user
-            mAuth.createUserWithEmailAndPassword(email, password).
+            mAuth.signInWithEmailAndPassword(email, password).
             addOnCompleteListener { task ->
                 if (task.isSuccessful)
                 {
-
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
