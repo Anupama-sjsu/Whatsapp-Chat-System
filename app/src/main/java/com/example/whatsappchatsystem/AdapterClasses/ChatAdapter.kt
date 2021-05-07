@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whatsappchatsystem.Fragments.ModelClasses.Chat
@@ -91,7 +92,31 @@ class ChatAdapter (
         //Send and seen message
         if (position == mChatList.size-1)
         {
-            holder.itemView.findViewById<TextView>(R.id.text_seen)!!.text = "seen"
+            if (chat.isIsSeen())
+            {
+                //Changed here
+                holder.text_seen!!.text = "Seen"
+
+                if (chat.getMessage().equals("sent you an image.") && chat.getUrl().equals(""))
+                {
+                    val lp: RelativeLayout.LayoutParams? = holder.text_seen!!.layoutParams as RelativeLayout.LayoutParams?
+                    lp!!.setMargins(0,245,10, 0)
+                    holder.text_seen!!.layoutParams =lp
+                }
+            }
+            else{
+
+                //Changed here
+                holder.text_seen!!.text = "Sent"
+
+                if (chat.getMessage().equals("sent you an image.") && chat.getUrl().equals(""))
+                {
+                    val lp: RelativeLayout.LayoutParams? = holder.text_seen!!.layoutParams as RelativeLayout.LayoutParams?
+                    lp!!.setMargins(0,245,10, 0)
+                    holder.text_seen!!.layoutParams =lp
+                }
+
+            }
 
         }else
         {
@@ -105,7 +130,7 @@ class ChatAdapter (
         var profile_image: CircleImageView? = null
         var show_text_message: TextView? = null
         var left_image_view: ImageView? = null
-        var text_seen: ImageView? = null
+        var text_seen: TextView? = null
         var right_image_view: ImageView? = null
 
         init {
@@ -118,8 +143,8 @@ class ChatAdapter (
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
+    override fun getItemViewType(position: Int): Int
+    {
 
         return if (mChatList[position].getSender().equals(firebaseUser!!.uid))
         {
