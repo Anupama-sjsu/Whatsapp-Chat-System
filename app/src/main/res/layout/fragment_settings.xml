@@ -89,7 +89,7 @@
 
         </ImageView>
         <ImageView
-            android:id="@+id/set_reddit"
+            android:id="@+id/set_website"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/reddit"
