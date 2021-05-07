@@ -49,9 +49,9 @@ class ChatsFragment : Fragment() {
             {
 
                 (usersChatList as ArrayList).clear()
-                for (datasnapshot in p0.children)
+                for (dataSnapshot in p0.children)
                 {
-                    val chatlist = datasnapshot.getValue(Chatlist::class.java)
+                    val chatlist = dataSnapshot.getValue(Chatlist::class.java)
                     (usersChatList as ArrayList).add(chatlist!!)
                 }
 
