@@ -21,7 +21,6 @@
 
         </de.hdodenhof.circleimageview.CircleImageView>
 
-
         <TextView
             android:id="@+id/show_text_message"
             android:layout_width="wrap_content"
@@ -38,8 +37,8 @@
 
         <ImageView
             android:id="@+id/right_image_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:visibility="gone">

@@ -210,7 +210,7 @@ class MessageChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun retrieveMessages(senderId: String?, receiverId: String?, receiverImageurl: String?)
+    private fun retrieveMessages(senderId: String?, receiverId: String?, receiverImageUrl: String?)
     {
         mChatList = ArrayList()
         val reference = FirebaseDatabase.getInstance().reference.child("Chats")
@@ -230,7 +230,7 @@ class MessageChatActivity : AppCompatActivity() {
 
                             (mChatList as ArrayList<Chat>).add(chat)
                     }
-                    chatsAdapter = ChatAdapter(this@MessageChatActivity, (mChatList as ArrayList<Chat>), receiverImageurl!!)
+                    chatsAdapter = ChatAdapter(this@MessageChatActivity, (mChatList as ArrayList<Chat>), receiverImageUrl!!)
                     recycler_view_chats.adapter = chatsAdapter
                 }
 
