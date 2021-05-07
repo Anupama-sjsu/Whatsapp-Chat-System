@@ -34,6 +34,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         mAuth = FirebaseAuth.getInstance()
+
         register_btn.setOnClickListener {
             registerUser()
         }

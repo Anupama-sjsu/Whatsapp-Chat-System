@@ -78,8 +78,11 @@ class SearchFragment : Fragment() {
 
                 (mUsers as ArrayList<Users>).clear()
 
+                var storeVal: String? = null
+                storeVal = searchEditText!!.text.toString()
+
                 //Only if the search box is empty, retrieve all users in the db
-                if (searchEditText!!.text.toString() == "")
+                if (storeVal == "")
                 {
                     for (snapshot in p0.children)
                     {
@@ -90,8 +93,10 @@ class SearchFragment : Fragment() {
 
                         }
                     }
-                    userAdapter = UserAdapter(context!!, mUsers!!, false)
-                    recyclerView!!.adapter = userAdapter
+                    activity?.let {
+                        userAdapter = UserAdapter(it, mUsers!!, false)
+                        recyclerView!!.adapter = userAdapter
+                    }
 
                 }
             }

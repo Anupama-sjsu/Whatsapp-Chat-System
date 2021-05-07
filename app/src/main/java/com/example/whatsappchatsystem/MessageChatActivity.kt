@@ -184,7 +184,7 @@ class MessageChatActivity : AppCompatActivity() {
                     messageHashMap["url"] = url
                     messageHashMap["messageId"] = messageId!!
 
-                    ref.child("Chats").child(messageId!!).setValue(messageHashMap)
+                    ref.child("Chats").child(messageId).setValue(messageHashMap)
                     progressBar.dismiss()
                 }
 
