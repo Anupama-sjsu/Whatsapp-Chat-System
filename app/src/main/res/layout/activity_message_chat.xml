@@ -92,12 +92,14 @@
             android:id="@+id/send_message_btn"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:background="@drawable/sendMsg"
+            android:background="@drawable/sendmsg"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true">
 
         </ImageView>
 
+
     </RelativeLayout>
+
 
 </RelativeLayout>

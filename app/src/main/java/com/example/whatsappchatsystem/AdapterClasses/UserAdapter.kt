@@ -1,13 +1,18 @@
 package com.example.whatsappchatsystem.AdapterClasses
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whatsappchatsystem.Fragments.ModelClasses.Users
+import com.example.whatsappchatsystem.MessageChatActivity
 import com.example.whatsappchatsystem.R
+import com.example.whatsappchatsystem.WelcomeActivity
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -43,6 +48,28 @@ class UserAdapter(
 
             holder.userNameTxt.text = user!!.getUserName()
             Picasso.get().load(user.getProfile()).placeholder(R.drawable.profile).into(holder.profileImageView)
+
+            holder.itemView.setOnClickListener{
+                val options = arrayOf<CharSequence>(
+                    "Send Message",
+                    "View Profile"
+                )
+                val builder: AlertDialog.Builder = AlertDialog.Builder(mContext)
+                builder.setTitle("Choose an option")
+                builder.setItems(options, DialogInterface.OnClickListener{ dialog, position ->
+                    if (position == 0)
+                    {
+                        val intent = Intent(mContext, MessageChatActivity::class.java)
+                        intent.putExtra("visit_id", user.getUID())
+                        mContext.startActivity(intent)
+                    }
+                    if (position == 1)
+                    {
+
+                    }
+
+                })
+            }
         }
 
         override fun getItemCount(): Int {
