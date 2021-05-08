@@ -93,10 +93,7 @@ class MyFirebaseMessaging: FirebaseMessagingService()
         {
             i=j
         }
-
         noti.notify(i, buider.build())
-
-
 
     }
 
