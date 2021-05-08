@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment
@@ -14,7 +12,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.whatsappchatsystem.Fragments.ChatsFragment
 import com.example.whatsappchatsystem.Fragments.ModelClasses.Chat
-import com.example.whatsappchatsystem.Fragments.ModelClasses.Chatlist
 import com.example.whatsappchatsystem.Fragments.ModelClasses.Users
 import com.example.whatsappchatsystem.Fragments.SearchFragment
 import com.example.whatsappchatsystem.Fragments.SettingsFragment
@@ -25,7 +22,6 @@ import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_register.username_register
 
 class MainActivity : AppCompatActivity() {
 

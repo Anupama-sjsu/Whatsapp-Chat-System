@@ -12,11 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.whatsappchatsystem.Fragments.ModelClasses.Users
 import com.example.whatsappchatsystem.MessageChatActivity
 import com.example.whatsappchatsystem.R
-import com.example.whatsappchatsystem.WelcomeActivity
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.user_search_item_layout.view.*
 
 class UserAdapter(
         mContext: Context,

@@ -14,8 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.message_item_left.view.*
-import kotlinx.android.synthetic.main.message_item_right.view.*
 
 class ChatAdapter (
     mContext: Context,
