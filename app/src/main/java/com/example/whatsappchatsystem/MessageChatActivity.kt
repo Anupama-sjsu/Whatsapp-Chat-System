@@ -9,8 +9,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whatsappchatsystem.AdapterClasses.ChatAdapter
+import com.example.whatsappchatsystem.Fragments.APIService
 import com.example.whatsappchatsystem.Fragments.ModelClasses.Chat
 import com.example.whatsappchatsystem.Fragments.ModelClasses.Users
+import com.example.whatsappchatsystem.Notifications.*
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -21,6 +23,9 @@ import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_message_chat.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MessageChatActivity : AppCompatActivity() {
 
@@ -32,6 +37,7 @@ class MessageChatActivity : AppCompatActivity() {
     var reference: DatabaseReference? = null
 
     var notify = false
+    var apiservice: APIService? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +55,10 @@ class MessageChatActivity : AppCompatActivity() {
             finish()
 
         }
+
+        apiservice = Client.Client.getClient("https://fcm.googleapis.com/")!!.create(APIService::class.java)
+
+
 
         intent = intent
         //here
@@ -161,36 +171,81 @@ class MessageChatActivity : AppCompatActivity() {
                         }
                     })
 
-                    //Implement the push notifications using FCM
-
-                    val reference = FirebaseDatabase.getInstance().reference
-                        .child("Users").child(firebaseUser!!.uid)
-                    reference.addValueEventListener(object : ValueEventListener{
-                        override fun onDataChange(p0: DataSnapshot)
-                        {
-                            val user = p0.getValue(Users::class.java)
-                            if (notify)
-                            {
-                                sendNotification(receiverId, user!!.getUserName(), message)
-
-                            }
-                            notify = false
-                        }
-
-                        override fun onCancelled(p0: DatabaseError) {
-
-                        }
-
-                    })
-
                 }
             }
+
+        //Implement the push notifications using FCM
+
+        val usersReference = FirebaseDatabase.getInstance().reference
+            .child("Users").child(firebaseUser!!.uid)
+        usersReference.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot)
+            {
+                val user = p0.getValue(Users::class.java)
+                if (notify)
+                {
+                    sendNotification(receiverId, user!!.getUserName(), message)
+
+                }
+                notify = false
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+        })
 
     }
 
     private fun sendNotification(receiverId: String, userName: String?, message: String)
     {
+        val ref = FirebaseDatabase.getInstance().reference.child("Tokens")
+        val query = ref.orderByKey().equalTo(receiverId)
+        query.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot)
+            {
+                for (dataSnapshot in p0.children)
+                {
+                    val token: Token? = dataSnapshot.getValue(Token::class.java)
+                    val data = Data(
+                        firebaseUser!!.uid,
+                        R.mipmap.ic_launcher,
+                        "$userName : $message",
+                        "New Message",
+                        userIdVisit
+                    )
+                    val sender = Sender(data!!, token!!.getToken().toString())
 
+                    apiservice!!.sendNotification(sender).enqueue(object : Callback<MyResponse>{
+                        override fun onResponse(call: Call<MyResponse>, response: Response<MyResponse>)
+                        {
+                            if (response.code() == 200)
+                            {
+                                if (response.body()!!.success !== 1)
+                                {
+                                    Toast.makeText(this@MessageChatActivity, "Faile, Nothing happened", Toast.LENGTH_LONG).show()
+                                }
+                            }
+
+                        }
+
+                        override fun onFailure(call: Call<MyResponse>, t: Throwable) {
+
+
+                        }
+                    })
+                }
+
+
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+
+        })
 
 
     }
