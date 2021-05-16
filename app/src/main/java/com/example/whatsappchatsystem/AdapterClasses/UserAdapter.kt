@@ -9,9 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.whatsappchatsystem.Fragments.ModelClasses.Chat
 import com.example.whatsappchatsystem.Fragments.ModelClasses.Users
 import com.example.whatsappchatsystem.MessageChatActivity
 import com.example.whatsappchatsystem.R
+import com.example.whatsappchatsystem.ViewUserProfileActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -24,6 +32,7 @@ class UserAdapter(
         private val mContext:Context
         private val mUsers: List<Users>
         private var isChatCheck: Boolean
+        var lastMsg:String = ""
 
         init {
 
@@ -46,6 +55,37 @@ class UserAdapter(
             holder.userNameTxt.text = user!!.getUserName()
             Picasso.get().load(user.getProfile()).placeholder(R.drawable.profile).into(holder.profileImageView)
 
+            if (isChatCheck)
+            {
+                retrieveLastMessage(user.getUID(), holder.lastMessageTxt)
+
+            }
+            else
+            {
+                holder.lastMessageTxt.visibility = View.GONE
+
+            }
+
+            //To set status as online/offline
+
+            if (isChatCheck)
+            {
+                if (user.getStatus() == "online")
+                {
+                    holder.onlineImageView.visibility = View.VISIBLE
+                    holder.offlineImageView.visibility = View.GONE
+                }else
+                {
+                    holder.onlineImageView.visibility = View.GONE
+                    holder.offlineImageView.visibility = View.VISIBLE
+                }
+            }
+            else
+            {
+                holder.onlineImageView.visibility = View.GONE
+                holder.offlineImageView.visibility = View.GONE
+            }
+
             holder.itemView.setOnClickListener{
                 val options = arrayOf<CharSequence>(
                     "Send Message",
@@ -62,6 +102,9 @@ class UserAdapter(
                     }
                     if (position == 1)
                     {
+                        val intent = Intent(mContext, ViewUserProfileActivity::class.java)
+                        intent.putExtra("visit_id", user.getUID())
+                        mContext.startActivity(intent)
 
                     }
 
@@ -69,6 +112,7 @@ class UserAdapter(
                 builder.show()
             }
         }
+
 
         override fun getItemCount(): Int {
             return mUsers.size
@@ -93,6 +137,50 @@ class UserAdapter(
                 lastMessageTxt = itemView.findViewById(R.id.message_last)
 
             }
+        }
+
+        private fun retrieveLastMessage(chatUserId: String?, lastMessageTxt: TextView)
+        {
+            lastMsg = "defaultMsg"
+
+            val firebaseUser = FirebaseAuth.getInstance().currentUser
+            val reference = FirebaseDatabase.getInstance().reference.child("Chats")
+
+            reference.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(p0: DataSnapshot)
+                {
+                    for (datasnapshot in p0.children)
+                    {
+                        val chat: Chat? = datasnapshot.getValue(Chat::class.java)
+
+                        if (firebaseUser != null && chat != null)
+                        {
+                            if (chat.getReceiver() == firebaseUser!!.uid &&
+                                chat.getSender() == chatUserId ||
+                                    chat.getReceiver() == chatUserId &&
+                                    chat.getSender() == firebaseUser!!.uid)
+                            {
+                                lastMsg = chat.getMessage()!!
+
+                            }
+                        }
+
+                    }
+                    when(lastMsg)
+                    {
+                        "defaultMsg" -> lastMessageTxt.text = "No new messages"
+                        "sent you an image." -> lastMessageTxt.text = "Sent an image"
+                        else -> lastMessageTxt.text = lastMsg
+                    }
+                    lastMsg = "defaultMsg"
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
         }
     }
 
