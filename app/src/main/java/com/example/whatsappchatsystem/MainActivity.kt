@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
 
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar_main))
 
@@ -49,20 +50,26 @@ class MainActivity : AppCompatActivity() {
         val tabLayout: TabLayout = findViewById(R.id.tabLayout)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-//
-//        viewPagerAdapter.addFragment(ChatsFragment(), title = "Chats")
-//        viewPagerAdapter.addFragment(SearchFragment(), title = "Search")
-//        viewPagerAdapter.addFragment(SettingsFragment(), title = "Settings")
-//
-//        viewPager.adapter = viewPagerAdapter
-//        tabLayout.setupWithViewPager(viewPager)
+
 
         val ref = FirebaseDatabase.getInstance().reference.child("Chats")
 
+        //UnCommented from here for bug fix
+        viewPagerAdapter.addFragment(ChatsFragment(), title = "Chats")
+        viewPagerAdapter.addFragment(SearchFragment(), title = "Search")
+        viewPagerAdapter.addFragment(SettingsFragment(), title = "Settings")
+
+        viewPager.adapter = viewPagerAdapter
+        tabLayout.setupWithViewPager(viewPager)
+        //to here
+
         ref!!.addValueEventListener(object : ValueEventListener{
+
             override fun onDataChange(p0: DataSnapshot)
             {
-                val ViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+
+                //for bug fix
+                //val ViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
                 var countUnreadMessages = 0
 
                 for (dataSnapshot in p0.children)
@@ -77,19 +84,29 @@ class MainActivity : AppCompatActivity() {
 
                 if (countUnreadMessages == 0)
                 {
-                    viewPagerAdapter.addFragment(ChatsFragment(), title = "Chats")
+                    //for bug fix
+                    //viewPagerAdapter.addFragment(ChatsFragment(), title = "Chats")
+
+                    viewPagerAdapter.updateTitle("Chats")
 
                 }
                 else
                 {
-                    viewPagerAdapter.addFragment(ChatsFragment(), title = "($countUnreadMessages) Chats")
+                    //for bug fix
+                    //viewPagerAdapter.addFragment(ChatsFragment(), title = "($countUnreadMessages) Chats")
+
+                    viewPagerAdapter.updateTitle("($countUnreadMessages) Chats")
                 }
 
-                viewPagerAdapter.addFragment(SearchFragment(), title = "Search")
-                viewPagerAdapter.addFragment(SettingsFragment(), title = "Settings")
+                viewPagerAdapter.notifyDataSetChanged()
 
-                viewPager.adapter = viewPagerAdapter
-                tabLayout.setupWithViewPager(viewPager)
+                //Commented from here for bug fix
+//                viewPagerAdapter.addFragment(SearchFragment(), title = "Search")
+//                viewPagerAdapter.addFragment(SettingsFragment(), title = "Settings")
+//
+//                viewPager.adapter = viewPagerAdapter
+//                tabLayout.setupWithViewPager(viewPager)
+                //To here
 
             }
 
@@ -173,6 +190,13 @@ class MainActivity : AppCompatActivity() {
         override fun getPageTitle(i: Int): CharSequence? {
             return titles[i]
         }
+
+        //Added this here for bug fix
+        fun updateTitle(title: String) {
+            titles[0] = title
+            notifyDataSetChanged()
+        }
+        //Ended here
 
     }
 

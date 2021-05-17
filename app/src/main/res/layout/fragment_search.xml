@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.SearchFragment">
+    tools:context=".Fragments.SearchFragment"
+    android:background="@color/colorPrimaryLight">
 
     <EditText
         android:id="@+id/searchUsersET"
@@ -13,6 +14,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="6dp"
+        android:layout_marginBottom="20dp"
         android:shadowDy="4"
         android:shadowDx="2"
         android:hint="Search Users Here.. "
