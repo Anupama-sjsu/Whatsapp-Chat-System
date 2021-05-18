@@ -10,6 +10,7 @@ Android chat app with local disk cache for message and photo (via disk or Room).
 3. Emulators or devices setup with SDK version kitkat and above to run the appplication on it
 
 Login credentials of existing users:
+
 emma@gmail.com/123456
 
 levi@gmail.com/123456
