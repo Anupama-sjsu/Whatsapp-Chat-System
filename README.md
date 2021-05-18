@@ -37,4 +37,3 @@ Once the receiver views it on his/her end in the chat window, this status on the
 
 15.	View Profile -  When a user clicks on view profile of a particular user, that user's profile picture, cover picture and social media links are displayed. The user can also click on send message from here to navigate to the chat window.
    
-![image](https://user-images.githubusercontent.com/70232769/118594350-2a55b180-b75e-11eb-8da7-d329a37459e8.png)
