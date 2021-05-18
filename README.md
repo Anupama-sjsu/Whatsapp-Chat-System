@@ -2,7 +2,7 @@
 A chatting platform, to send messages and share pictures and videos with contacts.
 
 ## Chosen Topic8 Android: 
-Android chat app with local disk cache for message and photo (via disk or Room). The chat app can interact with any backend via REST API, FireStore or Websocket for realtime chat.
+Android chat app with local disk cache for message and photo (via disk or Room). The chat app can interact with any backend via FireStore for realtime chat.
 
 ## Steps to set up this git repository project:
 1. This application is set up using firebase, by creating and registering the application on the platform. 
