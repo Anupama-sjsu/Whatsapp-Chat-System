@@ -29,7 +29,8 @@ A user is notified when a new message is received. This notification shows the s
 ### 5.	User profile picture -  
 The user can change his/her profile picture from given the default profile picture. The image chosen is uploaded to the firebase database to be saved. All the references to the user's profile picture fetches this new image now.
 
-### 6.	User cover picture - The user can change his/her cover picture from given the default profile picture. The image chosen is uploaded to the firebase database to be saved. All the references to the user's cover picture fetches this new image now.
+### 6.	User cover picture - 
+The user can change his/her cover picture from given the default profile picture. The image chosen is uploaded to the firebase database to be saved. All the references to the user's cover picture fetches this new image now.
 
 ### 7.	User social media -  
 The user facebook, Instagram and website links are saved to the database as well. 
