@@ -11,6 +11,7 @@ Android chat app with local disk cache for message and photo (via disk or Room).
 
 Login credentials of existing users:
 emma@gmail.com/123456
+
 levi@gmail.com/123456
 
 ## Features implemented:
